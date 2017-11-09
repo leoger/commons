@@ -42,48 +42,51 @@ advantage to effectively tell the story to those reading the code.
 We use the "one true brace style" ([1TBS](http://en.wikipedia.org/wiki/Indent_style#Variant:_1TBS)).
 Indent size is 2 columns.
 
-    :::java
-    // Like this.
-    if (x < 0) {
-      negative(x);
-    } else {
-      nonnegative(x);
-    }
+```java
+// Like this.
+if (x < 0) {
+  negative(x);
+} else {
+  nonnegative(x);
+}
 
-    // Not like this.
-    if (x < 0)
-      negative(x);
+// Not like this.
+if (x < 0)
+  negative(x);
 
-    // Also not like this.
-    if (x < 0) negative(x);
+// Also not like this.
+if (x < 0) negative(x);
+```
 
 Continuation indent is 4 columns.  Nested continuations may add 4 columns or 2 at each level.
 
-    :::java
-    // Bad.
-    //   - Line breaks are arbitrary.
-    //   - Scanning the code makes it difficult to piece the message together.
-    throw new IllegalStateException("Failed to process request" + request.getId()
-        + " for user " + user.getId() + " query: '" + query.getText()
-        + "'");
+```java
+// Bad.
+//   - Line breaks are arbitrary.
+//   - Scanning the code makes it difficult to piece the message together.
+throw new IllegalStateException("Failed to process request" + request.getId()
+    + " for user " + user.getId() + " query: '" + query.getText()
+    + "'");
 
-    // Good.
-    //   - Each component of the message is separate and self-contained.
-    //   - Adding or removing a component of the message requires minimal reformatting.
-    throw new IllegalStateException("Failed to process"
-        + " request " + request.getId()
-        + " for user " + user.getId()
-        + " query: '" + query.getText() + "'");
+// Good.
+//   - Each component of the message is separate and self-contained.
+//   - Adding or removing a component of the message requires minimal reformatting.
+throw new IllegalStateException("Failed to process"
+    + " request " + request.getId()
+    + " for user " + user.getId()
+    + " query: '" + query.getText() + "'");
+```
 
 Don't break up a statement unnecessarily.
 
-    :::java
-    // Bad.
-    final String value =
-        otherValue;
+```java
+// Bad.
+final String value =
+    otherValue;
 
-    // Good.
-    final String value = otherValue;
+// Good.
+final String value = otherValue;
+```
 
 Method declaration continuations.
 
@@ -132,29 +135,30 @@ Method declaration continuations.
 
 ##### Chained method calls
 
-    :::java
-    // Bad.
-    //   - Line breaks are based on line length, not logic.
-    Iterable<Module> modules = ImmutableList.<Module>builder().add(new LifecycleModule())
-        .add(new AppLauncherModule()).addAll(application.getModules()).build();
+```java
+// Bad.
+//   - Line breaks are based on line length, not logic.
+Iterable<Module> modules = ImmutableList.<Module>builder().add(new LifecycleModule())
+    .add(new AppLauncherModule()).addAll(application.getModules()).build();
 
-    // Better.
-    //   - Calls are logically separated.
-    //   - However, the trailing period logically splits a statement across two lines.
-    Iterable<Module> modules = ImmutableList.<Module>builder().
-        add(new LifecycleModule()).
-        add(new AppLauncherModule()).
-        addAll(application.getModules()).
-        build();
+// Better.
+//   - Calls are logically separated.
+//   - However, the trailing period logically splits a statement across two lines.
+Iterable<Module> modules = ImmutableList.<Module>builder().
+    add(new LifecycleModule()).
+    add(new AppLauncherModule()).
+    addAll(application.getModules()).
+    build();
 
-    // Good.
-    //   - Method calls are isolated to a line.
-    //   - The proper location for a new method call is unambiguous.
-    Iterable<Module> modules = ImmutableList.<Module>builder()
-        .add(new LifecycleModule())
-        .add(new AppLauncherModule())
-        .addAll(application.getModules())
-        .build();
+// Good.
+//   - Method calls are isolated to a line.
+//   - The proper location for a new method call is unambiguous.
+Iterable<Module> modules = ImmutableList.<Module>builder()
+    .add(new LifecycleModule())
+    .add(new AppLauncherModule())
+    .addAll(application.getModules())
+    .build();
+```
 
 #### No tabs
 An oldie, but goodie.  We've found tab characters to cause more harm than good.
@@ -180,18 +184,19 @@ ordering (sections
 [8.3.1](http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.3.1) and
 [8.4.3](http://docs.oracle.com/javase/specs/jls/se7/html/jls-8.html#jls-8.4.3)).
 
-    :::java
+```java
     // Bad.
     final volatile private String value;
 
     // Good.
     private final volatile String value;
+```
 
 ### Variable naming
 
 #### Extremely short variable names should be reserved for instances like loop indices.
 
-    :::java
+```java
     // Bad.
     //   - Field names give little insight into what fields are used for.
     class User {
@@ -208,10 +213,11 @@ ordering (sections
 
       ...
     }
+```
 
 #### Include units in variable names
 
-    :::java
+```java
     // Bad.
     long pollInterval;
     int fileSize;
@@ -225,6 +231,7 @@ ordering (sections
     //   - The field is easily adaptable between units, readability is high.
     Amount<Long, Time> pollInterval;
     Amount<Integer, Data> fileSize;
+```
 
 #### Don't embed metadata in variable names
 A variable name should describe the variable's purpose.  Adding extra information like scope and
@@ -232,7 +239,7 @@ type is generally a sign of a bad variable name.
 
 Avoid embedding the field type in the field name.
 
-    :::java
+```java
     // Bad.
     Map<Integer, User> idToUserMap;
     String valueString;
@@ -240,46 +247,51 @@ Avoid embedding the field type in the field name.
     // Good.
     Map<Integer, User> usersById;
     String value;
+```
 
 Also avoid embedding scope information in a variable.  Hierarchy-based naming suggests that a class
 is too complex and should be broken apart.
 
-    :::java
+```java
     // Bad.
     String _value;
     String mValue;
 
     // Good.
     String value;
+```
 
 ### Space pad operators and equals.
 
-    :::java
+```java
     // Bad.
     //   - This offers poor visual separation of operations.
     int foo=a+b+1;
 
     // Good.
     int foo = a + b + 1;
+```
 
 ### Be explicit about operator precedence
 Don't make your reader open the
 [spec](http://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html) to confirm,
 if you expect a specific operation ordering, make it obvious with parenthesis.
 
-    :::java
+```java
     // Bad.
     return a << 8 * n + 1 | 0xFF;
 
     // Good.
     return (a << (8 * n) + 1) | 0xFF;
+```
 
 It's even good to be *really* obvious.
 
-    :::java
+```java
     if ((values != null) && (10 > values.size())) {
       ...
     }
+```
 
 ### Documentation
 
@@ -290,7 +302,7 @@ the more documentation is needed.
 Your elementary school teacher was right - you should never start a statement this way.
 Likewise, you shouldn't write documentation this way.
 
-    :::java
+```java
     // Bad.
     /**
      * This is a class that implements a cache.  It does caching for you.
@@ -306,6 +318,7 @@ Likewise, you shouldn't write documentation this way.
     class Cache {
       ...
     }
+```
 
 #### Documenting a class
 Documentation for a class may range from a single sentence
@@ -314,7 +327,7 @@ blanks in the API, and make it easier to quickly and *correctly* use your API.
 A thorough class doc usually has a one sentence summary and, if necessary,
 a more detailed explanation.
 
-    :::java
+```java
     /**
      * An RPC equivalent of a unix pipe tee.  Any RPC sent to the tee input is guaranteed to have
      * been sent to both tee outputs before the call returns.
@@ -324,12 +337,13 @@ a more detailed explanation.
     public class RpcTee<T> {
       ...
     }
+```
 
 #### Documenting a method
 A method doc should tell what the method *does*.  Depending on the argument types, it may
 also be important to document input format.
 
-    :::java
+```java
     // Bad.
     //   - The doc tells nothing that the method declaration didn't.
     //   - This is the 'filler doc'.  It would pass style checks, but doesn't help anybody.
@@ -361,12 +375,13 @@ also be important to document input format.
      * @return A list of the whitespace-delimited parts of the input.
      */
     List<String> split(String s);
+```
 
 #### Be professional
 We've all encountered frustration when dealing with other libraries, but ranting about it doesn't
 do you any favors.  Suppress the expletives and get to the point.
 
-    :::java
+```java
     // Bad.
     // I hate xml/soap so much, why can't it do this for me!?
     try {
@@ -382,10 +397,11 @@ do you any favors.  Suppress the expletives and get to the point.
     } catch (NumberFormatException e) {
       ...
     }
+```
 
 #### Don't document overriding methods (usually)
 
-    :::java
+```java
     interface Database {
       /**
        * Gets the installed version of the database.
@@ -428,6 +444,7 @@ do you any favors.  Suppress the expletives and get to the point.
         ...
       }
     }
+```
 
 #### Use javadoc features
 
@@ -442,7 +459,7 @@ history and `OWNERS` files to determine ownership of a body of code.
 Imports are grouped by top-level package, with blank lines separating groups.  Static imports are
 grouped in the same way, in a section below traditional imports.
 
-    :::java
+```java
     import java.*
     import javax.*
 
@@ -457,6 +474,7 @@ grouped in the same way, in a section below traditional imports.
     import com.twitter.*
 
     import static *
+```
 
 #### No wildcard imports
 Wildcard imports make the source of an imported class less clear.  They also tend to hide a high
@@ -480,6 +498,7 @@ class [fan-out](http://en.wikipedia.org/wiki/Coupling_(computer_programming)#Mod
     interface Bar extends Foo {
       ...
     }
+```java
 
 ### Use annotations wisely
 
@@ -489,7 +508,7 @@ be explicit about it by marking
 [@Nullable](http://code.google.com/p/jsr-305/source/browse/trunk/ri/src/main/java/javax/annotation/Nullable.java?r=24).
 This is advisable even for fields/methods with private visibility.
 
-    :::java
+```java
     class Database {
       @Nullable private Connection connection;
 
@@ -502,6 +521,7 @@ This is advisable even for fields/methods with private visibility.
         this.connection = connection;
       }
     }
+```
 
 #### @VisibleForTesting
 Sometimes it makes sense to hide members and functions in general, but they may still be required
@@ -511,7 +531,7 @@ to indicate the purpose for visibility.
 
 Constants are a great example of things that are frequently exposed in this way.
 
-    :::java
+```java
     // Bad.
     //   - Any adjustments to field names need to be duplicated in the test.
     class ConfigReader {
@@ -546,6 +566,7 @@ Constants are a great example of things that are frequently exposed in this way.
             reader.parseConfig(String.format("{%s: bob}", ConfigReader.USER_FIELD)));
       }
     }
+```
 
 ### Use interfaces
 Interfaces decouple functionality from implementation, allowing you to use multiple implementations
@@ -556,7 +577,7 @@ implementations package private.
 Many small interfaces can seem heavyweight, since you end up with a large number of source files.
 Consider the pattern below as an alternative.
 
-    :::java
+```java
     interface FileFetcher {
       File getFile(String name);
 
@@ -568,12 +589,13 @@ Consider the pattern below as an alternative.
         }
       }
     }
+```
 
 #### Leverage or extend existing interfaces
 Sometimes an existing interface allows your class to easily 'plug in' to other related classes.
 This leads to highly [cohesive](http://en.wikipedia.org/wiki/Cohesion_(computer_science)) code.
 
-    :::java
+```java
     // An unfortunate lack of consideration.  Anyone who wants to interact with Blobs will need to
     // write specific glue code.
     class Blobs {
@@ -590,6 +612,7 @@ This leads to highly [cohesive](http://en.wikipedia.org/wiki/Cohesion_(computer_
         ...
       }
     }
+```
 
 Warning - don't bend the definition of an existing interface to make this work.  If the interface
 doesn't conceptually apply cleanly, it's best to avoid this.
